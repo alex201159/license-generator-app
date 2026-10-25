@@ -162,14 +162,23 @@ class NetworkAccess {
           return;
         }
         final bytes = <int>[];
+        var oversized = false;
         await for (final chunk in request) {
+          if (oversized) continue;
           if (bytes.length + chunk.length > 8192) {
-            _json(response, HttpStatus.requestEntityTooLarge, {
-              'error': 'Os dados enviados são muito longos.',
-            });
-            return;
+            oversized = true;
+            bytes.clear();
+          } else {
+            bytes.addAll(chunk);
           }
-          bytes.addAll(chunk);
+        }
+        // Drain the body before responding. Canceling its stream midway can
+        // reset the Windows socket before the browser receives the HTTP 413.
+        if (oversized) {
+          _json(response, HttpStatus.requestEntityTooLarge, {
+            'error': 'Os dados enviados são muito longos.',
+          });
+          return;
         }
         final data = jsonDecode(utf8.decode(bytes));
         if (data is! Map<String, dynamic>) {
