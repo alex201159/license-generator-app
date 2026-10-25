@@ -13,7 +13,11 @@ $expectedCommand = '"' + $resolvedApp + '" --startup'
 Start-Process -FilePath $resolvedApp -WorkingDirectory $appDirectory | Out-Null
 $registered = $null
 for ($attempt = 0; $attempt -lt 30; $attempt++) {
-    $registered = Get-ItemPropertyValue -LiteralPath $runKey -Name 'LCCargaServer' -ErrorAction SilentlyContinue
+    try {
+        $registered = Get-ItemPropertyValue -LiteralPath $runKey -Name 'LCCargaServer' -ErrorAction Stop
+    } catch {
+        $registered = $null
+    }
     if ($registered -eq $expectedCommand) { break }
     Start-Sleep -Milliseconds 500
 }
