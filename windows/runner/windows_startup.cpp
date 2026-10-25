@@ -36,9 +36,12 @@ bool RegisterWindowsStartup(const std::wstring& executable_path) {
     return false;
   }
   const LSTATUS written = RegSetValueExW(
-      run_key, L"LCCargaServer", 0, REG_SZ,
+      run_key, L"GeradorLicencasServer", 0, REG_SZ,
       reinterpret_cast<const BYTE*>(command.c_str()),
       static_cast<DWORD>((command.size() + 1) * sizeof(wchar_t)));
+  if (written == ERROR_SUCCESS) {
+    RegDeleteValueW(run_key, L"LCCargaServer");
+  }
   RegCloseKey(run_key);
   return written == ERROR_SUCCESS;
 }

@@ -58,7 +58,7 @@ class LicenseGeneratorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gerador de Licença',
+      title: 'Gerador de Licenças',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -491,7 +491,7 @@ class _LicenseGeneratorPageState extends State<LicenseGeneratorPage>
               ),
               const SizedBox(height: 18),
               Text(
-                'Gerador de Licenças',
+                'Gerar nova licença',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
@@ -601,7 +601,7 @@ class _LicenseGeneratorPageState extends State<LicenseGeneratorPage>
                 decoration: InputDecoration(
                   labelText: 'Código da máquina',
                   hintText: 'Cole o código do sistema',
-                  helperText: 'Código exibido no LC Carga',
+                  helperText: 'Código exibido no sistema a ativar',
                   filled: true,
                   fillColor: colorScheme.surfaceContainerHighest,
                   border: OutlineInputBorder(
@@ -1589,14 +1589,17 @@ class _LicenseGeneratorPageState extends State<LicenseGeneratorPage>
                               ),
                             ),
                             const SizedBox(width: 14),
-                            Text(
-                              'LC Carga',
-                              style: Theme.of(context).textTheme.headlineSmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.white,
-                                    letterSpacing: -1,
-                                  ),
+                            Flexible(
+                              child: Text(
+                                'Gerador de Licenças',
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.headlineSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.white,
+                                      letterSpacing: -1,
+                                    ),
+                              ),
                             ),
                           ],
                         ),

@@ -90,11 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "license_generator_app" "\0"
+            VALUE "FileDescription", "Gerador de Licenças" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "license_generator_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "license_generator_app.exe" "\0"
+            // Keep the storage identifier stable for existing activation history.
             VALUE "ProductName", "license_generator_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

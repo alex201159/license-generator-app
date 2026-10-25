@@ -14,7 +14,7 @@ Start-Process -FilePath $resolvedApp -WorkingDirectory $appDirectory | Out-Null
 $registered = $null
 for ($attempt = 0; $attempt -lt 30; $attempt++) {
     try {
-        $registered = Get-ItemPropertyValue -LiteralPath $runKey -Name 'LCCargaServer' -ErrorAction Stop
+        $registered = Get-ItemPropertyValue -LiteralPath $runKey -Name 'GeradorLicencasServer' -ErrorAction Stop
     } catch {
         $registered = $null
     }

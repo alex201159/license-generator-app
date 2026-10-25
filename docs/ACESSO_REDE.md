@@ -1,9 +1,9 @@
-# LC Carga no Windows e acesso pela rede
+# Gerador de Licenças no Windows e acesso pela rede
 
 ## Usar o aplicativo no PC servidor
 
-1. Extraia a pasta inteira do pacote `LC-Carga-Windows.zip` para uma pasta do PC.
-2. Abra `license_generator_app.exe` uma vez. Ele cadastra a inicialização automática para o usuário atual do Windows. Mantenha os arquivos `.dll` e a pasta `data` ao lado do executável, em uma pasta permanente.
+1. Copie o arquivo **Gerador-de-Licencas-Setup.exe** para o PC Windows e execute-o.
+2. Conclua o assistente e use o atalho **Gerador de Licenças** criado na área de trabalho ou no menu Iniciar. O instalador organiza automaticamente o executável, as DLLs e a pasta de dados do Flutter, e cadastra a inicialização após o login.
 3. O servidor inicia automaticamente na porta **8787** após carregar o histórico. Abra a aba **Rede** para consultar o endereço e o status.
 4. Copie um dos endereços mostrados, por exemplo `http://192.168.1.50:8787`, e a **senha de acesso pela rede**.
 5. Em outro computador ou celular na mesma rede, abra esse endereço no navegador e informe a senha fixa **88336092**.
@@ -16,11 +16,11 @@ O PC precisa permanecer ligado, sem suspensão, e com o aplicativo aberto. Ao fe
 
 Depois da primeira execução no Windows, o aplicativo abre automaticamente **após entrar na mesma conta de usuário**, minimizado na barra de tarefas. O servidor é ativado na porta **8787** com a senha **88336092**. Não é necessário abrir o programa manualmente a cada login.
 
-Essa configuração usa a entrada `LCCargaServer` na chave `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`, com o caminho do executável e o argumento `--startup`. A inicialização segue o mecanismo de [programas executados no login do Windows](https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys). Ela depende do login do usuário e não é um serviço executado antes da tela de login.
+Essa configuração usa a entrada `GeradorLicencasServer` na chave `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`, com o caminho do executável e o argumento `--startup`. A inicialização segue o mecanismo de [programas executados no login do Windows](https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys). Ela depende do login do usuário e não é um serviço executado antes da tela de login.
 
 Ao abrir o executável novamente, a janela já existente é restaurada. O programa mantém uma única instância para evitar dois servidores disputando a mesma porta. Mantenha a janela aberta ou minimizada; fechar pelo **X** encerra o servidor até abrir o programa novamente ou entrar novamente no Windows.
 
-Se mover a pasta do programa, abra o executável no novo local uma vez para atualizar o cadastro. Para desabilitar a inicialização automática, use **Gerenciador de Tarefas → Aplicativos de inicialização** e desabilite a entrada correspondente ao LC Carga ou `license_generator_app`.
+Se mover a pasta do programa, abra o executável no novo local uma vez para atualizar o cadastro. Para desabilitar a inicialização automática, use **Gerenciador de Tarefas → Aplicativos de inicialização** e desabilite a entrada correspondente ao Gerador de Licenças ou `license_generator_app`.
 
 O pacote inclui uma verificação para executar no PC Windows:
 
@@ -34,11 +34,17 @@ Ela confere o cadastro do executável, a resposta do servidor com a senha config
 
 O endereço usa HTTP e foi preparado para a rede local. Acesso de fora dessa rede exige outra configuração. Não configure encaminhamento dessa porta no roteador. Se o IP do PC mudar, use o novo endereço mostrado na aba Rede; uma reserva DHCP no roteador evita essa mudança.
 
+## Versão portátil e histórico
+
+O ZIP `Gerador-de-Licencas-Windows.zip` é uma alternativa portátil. Ao usá-lo, extraia a pasta inteira e abra `license_generator_app.exe`; os demais arquivos são necessários. No instalador único, essa organização é feita pelo assistente.
+
+O histórico fica na pasta de dados do usuário e é preservado ao atualizar ou desinstalar o programa.
+
 ## Firewall do Windows
 
 Se o Windows pedir permissão, permita o aplicativo em **redes privadas**. A rede utilizada no PC deve estar marcada como privada.
 
-Se o acesso continuar bloqueado, abra o PowerShell **como administrador**, entre na pasta extraída e execute o script incluído:
+Se o acesso continuar bloqueado, abra o PowerShell **como administrador**, entre na pasta instalada (`%LOCALAPPDATA%\Programs\Gerador de Licencas`) ou na pasta portátil e execute o script incluído:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\HABILITAR_REDE.ps1
@@ -59,10 +65,10 @@ O workflow `.github/workflows/windows-release.yml` usa um Windows do GitHub Acti
 1. Abra o repositório privado do projeto no GitHub e entre em **Actions**.
 2. Selecione **Gerar aplicativo Windows** e clique em **Run workflow** para compilar novamente.
 3. Aguarde a compilação e as verificações terminarem com sucesso.
-4. Abra a execução e baixe **LC-Carga-Windows-x64** na seção **Artifacts**.
-5. Extraia o arquivo baixado e depois `LC-Carga-Windows.zip`. Copie a pasta completa para o PC Windows e abra `license_generator_app.exe` uma vez.
+4. Abra a execução e baixe **Gerador-de-Licencas-Instalador-Windows-x64** na seção **Artifacts**.
+5. Extraia o arquivo baixado para obter **Gerador-de-Licencas-Setup.exe**. Copie somente esse instalador para o PC Windows e execute-o.
 
-O build usa Flutter **3.41.4**, executa a análise e os testes, compila o `.exe`, verifica o servidor e a inicialização minimizada e disponibiliza o pacote por 14 dias. As bibliotecas redistribuíveis do Visual C++ são incluídas quando encontradas na instalação do compilador.
+O build usa Flutter **3.41.4**, executa a análise e os testes, compila o `.exe`, cria e instala o instalador, verifica o servidor e a inicialização minimizada, e testa a desinstalação com preservação do histórico e disponibiliza o pacote por 14 dias. As bibliotecas redistribuíveis do Visual C++ são incluídas quando encontradas na instalação do compilador.
 
 Os dados do histórico não fazem parte do repositório nem do pacote de compilação. A transferência dos registros existentes é feita conforme a seção abaixo. A máquina Windows da nuvem serve para compilar e testar; o servidor definitivo continuará rodando no seu PC Windows.
 
@@ -76,7 +82,9 @@ Na pasta do projeto:
 powershell -ExecutionPolicy Bypass -File .\scripts\build_windows.ps1
 ```
 
-O script executa os testes, compila o programa e gera `dist\LC-Carga-Windows.zip` com o executável, DLLs, dados do Flutter e estas instruções. No PC de destino, pode ser necessário instalar o Microsoft Visual C++ Redistributable; os requisitos de distribuição estão na [documentação do Flutter para Windows](https://docs.flutter.dev/platform-integration/windows/building).
+Para criar também o instalador único, instale o Inno Setup 6 e execute `powershell -ExecutionPolicy Bypass -File .\scripts\build_windows_installer.ps1` após o build.
+
+O script de build executa os testes, compila o programa e gera `dist\Gerador-de-Licencas-Windows.zip` com o executável, DLLs, dados do Flutter e estas instruções. No PC de destino, pode ser necessário instalar o Microsoft Visual C++ Redistributable; os requisitos de distribuição estão na [documentação do Flutter para Windows](https://docs.flutter.dev/platform-integration/windows/building).
 
 ## Dados e mudança do Mac para o Windows
 

@@ -1,4 +1,4 @@
-# LC Carga — Gerador de licenças
+# Gerador de Licenças
 
 Aplicativo Flutter com histórico persistente, valores em reais, pastas mensais,
 aba de chaves expiradas e acesso por navegador na rede local.
@@ -31,4 +31,5 @@ o histórico estão em [Acesso pela rede e Windows](docs/ACESSO_REDE.md).
 
 O workflow **Gerar aplicativo Windows** compila e verifica o `.exe` no GitHub
 Actions. No Mac, basta abrir a aba Actions do repositório e baixar o artefato
-**LC-Carga-Windows-x64** após a execução terminar com sucesso.
+**Gerador-de-Licencas-Instalador-Windows-x64** após a execução terminar com sucesso.
+O instalador único é **Gerador-de-Licencas-Setup.exe**.

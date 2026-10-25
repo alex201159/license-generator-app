@@ -32,7 +32,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   if (instance_error == ERROR_ALREADY_EXISTS) {
     if (!start_minimized) {
       HWND existing = FindWindowW(L"FLUTTER_RUNNER_WIN32_WINDOW",
-                                  L"license_generator_app");
+                                  L"Gerador de Licen\u00E7as");
       if (existing != nullptr) {
         ShowWindow(existing, SW_RESTORE);
         SetForegroundWindow(existing);
@@ -47,7 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
     return EXIT_FAILURE;
   }
   if (!start_minimized && !RegisterWindowsStartup(executable_path)) {
-    OutputDebugStringW(L"LC Carga: falha ao registrar a inicializacao do Windows.\n");
+    OutputDebugStringW(L"Gerador de Licencas: falha ao registrar a inicializacao do Windows.\n");
   }
 
   // Attach to console when present (e.g., 'flutter run') or create a
@@ -69,7 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project, start_minimized);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
-  if (!window.Create(L"license_generator_app", origin, size)) {
+  if (!window.Create(L"Gerador de Licen\u00E7as", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

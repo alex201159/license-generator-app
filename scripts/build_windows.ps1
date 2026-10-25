@@ -15,7 +15,7 @@ $executables = @(Get-ChildItem -Path 'build\windows' -Filter 'license_generator_
 if ($executables.Count -ne 1) { throw 'Pasta de release do Windows nao encontrada ou ambigua.' }
 
 $releaseFolder = $executables[0].Directory.FullName
-$packageFolder = Join-Path (Get-Location) 'dist\LC-Carga-Windows'
+$packageFolder = Join-Path (Get-Location) 'dist\Gerador-de-Licencas-Windows'
 if (Test-Path -LiteralPath $packageFolder) { Remove-Item -LiteralPath $packageFolder -Recurse -Force }
 New-Item -ItemType Directory -Path $packageFolder -Force | Out-Null
 Copy-Item -Path (Join-Path $releaseFolder '*') -Destination $packageFolder -Recurse -Force
@@ -41,7 +41,7 @@ if (Test-Path -LiteralPath $vswhere) {
 Copy-Item -LiteralPath 'docs\ACESSO_REDE.md' -Destination (Join-Path $packageFolder 'LEIA-ME.md')
 Copy-Item -LiteralPath 'scripts\allow_windows_network.ps1' -Destination (Join-Path $packageFolder 'HABILITAR_REDE.ps1')
 Copy-Item -LiteralPath 'scripts\test_windows_startup.ps1' -Destination (Join-Path $packageFolder 'VERIFICAR_INICIALIZACAO.ps1')
-$archive = Join-Path (Get-Location) 'dist\LC-Carga-Windows.zip'
+$archive = Join-Path (Get-Location) 'dist\Gerador-de-Licencas-Windows.zip'
 Compress-Archive -Path $packageFolder -DestinationPath $archive -Force
 Write-Host "Pacote criado em $archive"
 Write-Host 'Copie e extraia a pasta inteira no PC de destino.'

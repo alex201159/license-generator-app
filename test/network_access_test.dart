@@ -87,6 +87,7 @@ void main() {
       final result = await request('/', authenticated: false);
       expect(result.status, 200);
       expect(result.body, contains('Histórico'));
+      expect(result.body, contains('<h1>Gerador de Licenças</h1>'));
       expect(result.body, contains('Expiradas'));
       expect(result.body, isNot(contains(secret)));
       expect(result.body, isNot(contains(defaultLicenseSecret)));

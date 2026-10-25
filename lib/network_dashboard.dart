@@ -3,7 +3,7 @@ const networkDashboardHtml = r'''<!doctype html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>LC Carga · Acesso pela rede</title>
+    <title>Gerador de Licenças · Acesso pela rede</title>
     <style nonce="__NONCE__">
       * {
         box-sizing: border-box;
@@ -257,7 +257,7 @@ const networkDashboardHtml = r'''<!doctype html>
   <body>
     <main>
       <header>
-        <h1>LC Carga</h1>
+        <h1>Gerador de Licenças</h1>
         <p>Gerador de licenças · Acesso pela rede</p>
       </header>
       <section id="login" class="panel login">
@@ -306,7 +306,7 @@ const networkDashboardHtml = r'''<!doctype html>
                   id="hardware"
                   required
                   maxlength="1024"
-                  placeholder="Cole o código exibido no LC Carga"
+                  placeholder="Cole o código exibido no sistema a ativar"
                 />
               </div>
               <div class="row">
